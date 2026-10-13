@@ -1,0 +1,20 @@
+# Dependencies and generated output
+node_modules/
+dist/
+coverage/
+
+# Local environment and logs
+.env
+.env.*
+!.env.example
+*.log
+npm-debug.log*
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Machine-specific editor and agent configuration
+/.vscode/mcp.json
+/.github/hooks/context-mode.json
+/.github/context-mode/
