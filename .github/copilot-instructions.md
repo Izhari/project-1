@@ -3,7 +3,9 @@
 ## Communication
 
 - Respond to the user in Indonesian unless they explicitly request another language.
-- Write project instructions and code documentation in clear, professional English.
+- Write repository content—including source comments, identifiers, instructions, configuration text, commit-facing documentation, and Markdown—in professional, natural English or Indonesian, as appropriate to its audience.
+- Use English for code identifiers and technical APIs; use a consistent language within each document or user-facing flow unless bilingual wording is explicitly useful.
+- Avoid slang, overly casual wording, awkwardly literal translations, and unnecessarily stiff or verbose language.
 - Keep responses concise, factual, and focused on the current request.
 
 ## Project Scope
@@ -21,12 +23,22 @@
 - Do not add credentials, cookies, session tokens, or other secrets. Reading public live events must not require asking the user for TikTok credentials.
 - Make focused changes and avoid unrelated refactors.
 
+## Context Management
+
+- Use the configured context-mode tools when they materially improve work with large files, extensive command output, or broad repository context; prefer concise in-tool summaries and targeted retrieval over dumping large raw content into chat.
+- Do not invoke context-mode for simple requests or small, directly readable files when it adds overhead without a clear benefit.
+- Treat context-mode as an optional aid, not a substitute for inspecting the relevant source, validating changes, or reporting uncertainty.
+- Never send secrets, credentials, private user data, or other sensitive repository content to external services or index them into shared stores.
+
 ## Windows Usage and Validation
 
-- The Windows working copy is `C:\Users\izhar\project-1`; when that copy is the target, keep its application files in sync with the workspace source.
+- The Windows working copy is `C:\Users\izhar\project-1`.
+- Unless the user explicitly says otherwise, synchronize every relevant repository change—including source files, instructions, configuration, and documentation—to the matching relative path in the Windows working copy.
+- Before synchronizing, inspect the target and preserve unrelated Windows-only files or edits; do not overwrite user changes or copy machine-specific secrets, dependencies, caches, or generated output.
 - PowerShell treats an unquoted `@username` specially. Quote usernames in examples and invocations, for example:
   `npm start -- "@sugar.kevin"`.
-- Install dependencies with `npm install`; run the project's syntax check with `npm run check`.
+- After synchronizing changes, run at least the smallest relevant check on Windows; for the current project, use `npm.cmd run check` from `C:\Users\izhar\project-1`. Install dependencies with `npm.cmd install` only when required.
+- If Windows execution or validation is unavailable, state that explicitly instead of claiming the check passed.
 - When asked to test a live account, use only the provided public username, report which events were actually observed, and stop the exact listener process after the test. Do not leave background listeners or audio playback running.
 - Distinguish a successful PowerShell beep command from a sound verified as audible through the user's physical or broadcast audio device.
 - State clearly when Windows playback or broadcast routing cannot be physically verified from the current environment.
