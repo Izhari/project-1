@@ -26,10 +26,14 @@
 
 ## Context Management
 
-- Use the configured context-mode tools when they materially improve work with large files, extensive command output, or broad repository context; prefer concise in-tool summaries and targeted retrieval over dumping large raw content into chat.
-- Do not invoke context-mode for simple requests or small, directly readable files when it adds overhead without a clear benefit.
-- Treat context-mode as an optional aid, not a substitute for inspecting the relevant source, validating changes, or reporting uncertainty.
-- Never send secrets, credentials, private user data, or other sensitive repository content to external services or index them into shared stores.
+- Prefer the configured context-mode MCP server for context-heavy investigation and analysis so large raw inputs stay out of the conversation.
+- Use context-mode by default when a task involves three or more related reads or commands, multiple files/logs, large or unpredictable command output, repository-wide exploration, or analysis that requires filtering, counting, parsing, or comparing substantial data.
+- Choose the matching workflow: use `ctx_execute` or `ctx_execute_file` to summarize/filter/derive from command output or files; use `ctx_batch_execute` to run three or more related I/O-bound commands and query their combined results; use `ctx_fetch_and_index` for multi-page web research, and `ctx_index` followed by `ctx_search` when documentation or reference material needs repeated lookup.
+- Keep results concise: print only the facts, excerpts, or calculations needed for the task. Do not dump whole large files, logs, search results, or API responses into chat when an in-tool summary or targeted retrieval will do.
+- For a simple request, one small file, or a known short output, use the direct file/tool workflow instead; context-mode must reduce overhead or context use, not add ceremony.
+- Treat context-mode as an analysis aid, not a substitute for inspecting relevant source before edits, running the required tests, or disclosing uncertainty. Do not claim to have used it if the tools are unavailable.
+- Never index or expose credentials, cookies, session tokens, private user data, ignored local files, or other sensitive content. Keep context-mode session data under `.github/context-mode/` ignored by Git.
+- Keep `.vscode/mcp.json` and `.github/hooks/context-mode.json` tracked as shareable, secret-free project setup. Do not put machine-specific paths, credentials, or private configuration in them.
 
 ## Windows Usage and Validation
 
