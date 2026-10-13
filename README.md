@@ -22,11 +22,21 @@ contoh: `npm start -- "@sugar.kevin"`.
 Listener menampilkan event penonton masuk, gift, komentar, dan like. Tekan
 `Ctrl+C` untuk memutuskan koneksi.
 
-Di Windows, listener membunyikan nada singkat saat menerima event tersebut.
-Untuk menghindari suara bertumpuk ketika live ramai, suara dibatasi paling
-banyak satu kali setiap 1,2 detik. Nada diputar melalui perangkat audio default
-Windows; agar terdengar oleh penonton, pastikan audio desktop ikut masuk ke
-TikTok LIVE Studio atau OBS. Suara ini adalah nada sederhana, belum voice/TTS.
+Di Windows, event penonton masuk memutar file lokal `assets/sounds/view.mp3`.
+Letakkan file MP3 Anda di lokasi tersebut; file ini sengaja diabaikan Git dan
+tidak akan masuk ke GitHub. Gift, komentar, dan like tetap menggunakan nada
+singkat. Alert diputar satu per satu agar tidak tumpang tindih. Bunyi join
+dibatasi satu kali per lima detik; setiap komentar mendapat satu alert antrean,
+sementara gift dan komentar diprioritaskan atas join dan like. Antrean dibatasi
+agar tidak tumbuh tanpa batas, dan event yang tidak tertampung dilaporkan.
+Audio diputar melalui perangkat default Windows; agar terdengar oleh penonton,
+pastikan audio desktop ikut masuk ke TikTok LIVE Studio atau OBS. Suara penonton
+ini berupa klip audio, bukan TTS.
+
+Daftar akun publik untuk pengujian disimpan lokal di
+`.local/live-test-usernames.txt`. Jika akun uji yang diminta sedang offline,
+gunakan akun lain dari daftar tersebut. File ini diabaikan Git dan dapat
+ditambah sesuai kebutuhan.
 
 ## Batasan
 

@@ -76,7 +76,11 @@ try {
   process.exitCode = 1;
 }
 
-process.once('SIGINT', async () => {
+let shuttingDown = false;
+
+async function shutdown() {
+  if (shuttingDown) return;
+  shuttingDown = true;
   logEvent('Menutup listener');
   stopAlert();
   try {
@@ -85,4 +89,7 @@ process.once('SIGINT', async () => {
     console.error('[ERROR] Gagal menutup koneksi:', error.message);
     process.exitCode = 1;
   }
-});
+}
+
+process.once('SIGINT', shutdown);
+process.once('SIGTERM', shutdown);

@@ -19,7 +19,8 @@
 
 - Use the existing JavaScript ES module structure under `src/`; keep event ingestion in `src/listener.js` and alert playback in `src/sound.js`.
 - TikTok chat message text is provided as `content` by the installed connector; preserve support for `comment` as a fallback.
-- Keep alert sounds short and rate-limited so busy rooms do not flood or overlap audio. Ensure active child audio processes stop when the listener exits.
+- Serialize alert playback so sounds never overlap or cut off an active clip. Coalesce viewer-join sounds to at most one per five-second window; preserve one queued alert per comment; prioritize gifts and comments over joins and likes; rate-limit likes; and report queue overflow explicitly.
+- The custom viewer-join audio is the local-only `assets/sounds/view.mp3`; do not remove its ignore rule or copy it into tracked artifacts.
 - Do not add credentials, cookies, session tokens, or other secrets. Reading public live events must not require asking the user for TikTok credentials.
 - Make focused changes and avoid unrelated refactors.
 
@@ -40,5 +41,6 @@
 - After synchronizing changes, run at least the smallest relevant check on Windows; for the current project, use `npm.cmd run check` from `C:\Users\izhar\project-1`. Install dependencies with `npm.cmd install` only when required.
 - If Windows execution or validation is unavailable, state that explicitly instead of claiming the check passed.
 - When asked to test a live account, use only the provided public username, report which events were actually observed, and stop the exact listener process after the test. Do not leave background listeners or audio playback running.
+- If a requested public test account is offline, consult `.local/live-test-usernames.txt` and try its public usernames in order until a live account connects; add newly approved test accounts to that local list, not to tracked documentation.
 - Distinguish a successful PowerShell beep command from a sound verified as audible through the user's physical or broadcast audio device.
 - State clearly when Windows playback or broadcast routing cannot be physically verified from the current environment.
