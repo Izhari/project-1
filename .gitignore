@@ -19,3 +19,8 @@ Thumbs.db
 
 # Local-only public accounts used for LIVE testing
 /.local/live-test-usernames.txt
+
+# Local-only custom viewer alert
+.github/context-mode/*
+.github/hooks/*
+.vscode/mcp.json
