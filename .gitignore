@@ -14,9 +14,6 @@ npm-debug.log*
 .DS_Store
 Thumbs.db
 
-# Machine-specific editor and agent configuration
-/.github/context-mode/
-
 # Local-only custom viewer alert
 /assets/sounds/view.mp3
 
