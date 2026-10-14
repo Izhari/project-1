@@ -1,7 +1,7 @@
 {
   "servers": {
     "context-mode": {
-      "command": "/home/izhchyt12/.nvm/versions/node/v22.22.1/bin/context-mode",
+      "command": "context-mode",
       "cwd": "${workspaceFolder}"
     }
   }
