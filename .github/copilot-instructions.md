@@ -33,18 +33,17 @@
 - Do not use direct reads or raw command output for large-file analysis, log review, bulk search results, multi-file comparison, or data derivation when a context-mode sandbox workflow can keep the raw content out of chat. Never mentally compute over substantial raw output; perform the derivation in code and print the answer.
 - Direct tools remain appropriate for edits, navigation, a single small file, a short known output, or when context-mode is unavailable. Do not add context-mode calls to simple tasks merely to increase usage.
 - Context-mode is an analysis aid, not a substitute for reviewing the exact code being changed, validating the requested behavior, or disclosing uncertainty. Never claim a context-mode workflow ran unless it actually did.
-- Never send credentials, cookies, session tokens, private user data, secrets, or ignored local files to context-mode, external services, or shared indexes. Keep context-mode session data under `.github/context-mode/`, which is ignored by Git.
+- Never send credentials, cookies, session tokens, private user data, secrets, or ignored local files to context-mode, external services, or shared indexes. Context-mode runtime data may be stored outside the repository according to the active host configuration. Do not assume `.vscode/mcp.json` changes that storage location. The ignored `.github/context-mode/sessions/` directory is only for local session data when context-mode is explicitly configured to use it.
 - The workspace configures the context-mode MCP server in `.vscode/mcp.json` and its Copilot hooks in `.github/hooks/context-mode.json`. After configuration changes, restart VS Code/Copilot Chat and verify availability with `ctx stats`.
 - Keep `.vscode/mcp.json` and `.github/hooks/context-mode.json` tracked as shareable, secret-free project setup. Do not put machine-specific paths, credentials, or private configuration in them.
 
 ## Windows Usage and Validation
 
-- The Windows working copy is `C:\Users\izhar\project-1`.
-- Unless the user explicitly says otherwise, synchronize every relevant repository change—including source files, instructions, configuration, and documentation—to the matching relative path in the Windows working copy.
-- Before synchronizing, inspect the target and preserve unrelated Windows-only files or edits; do not overwrite user changes or copy machine-specific secrets, dependencies, caches, or generated output.
+- Make changes directly in the active workspace. Do not assume a separate WSL or Windows checkout needs to be synchronized.
+- Use PowerShell and Windows-compatible paths when operating in a Windows workspace. Resolve the repository root from the active workspace; do not hardcode a user's home directory or machine-specific project path in tracked instructions.
 - PowerShell treats an unquoted `@username` specially. Quote usernames in examples and invocations, for example:
   `npm start -- "@sugar.kevin"`.
-- After synchronizing changes, run at least the smallest relevant check on Windows; for the current project, use `npm.cmd run check` from `C:\Users\izhar\project-1`. Install dependencies with `npm.cmd install` only when required.
+- After changing code, run the smallest relevant check from the repository root. On Windows, use `npm.cmd run check`; install dependencies with `npm.cmd install` only when required.
 - If Windows execution or validation is unavailable, state that explicitly instead of claiming the check passed.
 - When asked to test a live account, use only the provided public username, report which events were actually observed, and stop the exact listener process after the test. Do not leave background listeners or audio playback running.
 - If a requested public test account is offline, consult `.local/live-test-usernames.txt` and try its public usernames in order until a live account connects; add newly approved test accounts to that local list, not to tracked documentation.
