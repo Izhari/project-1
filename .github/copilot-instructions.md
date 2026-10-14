@@ -26,13 +26,15 @@
 
 ## Context Management
 
-- Prefer the configured context-mode MCP server for context-heavy investigation and analysis so large raw inputs stay out of the conversation.
-- Use context-mode by default when a task involves three or more related reads or commands, multiple files/logs, large or unpredictable command output, repository-wide exploration, or analysis that requires filtering, counting, parsing, or comparing substantial data.
-- Choose the matching workflow: use `ctx_execute` or `ctx_execute_file` to summarize/filter/derive from command output or files; use `ctx_batch_execute` to run three or more related I/O-bound commands and query their combined results; use `ctx_fetch_and_index` for multi-page web research, and `ctx_index` followed by `ctx_search` when documentation or reference material needs repeated lookup.
-- Keep results concise: print only the facts, excerpts, or calculations needed for the task. Do not dump whole large files, logs, search results, or API responses into chat when an in-tool summary or targeted retrieval will do.
-- For a simple request, one small file, or a known short output, use the direct file/tool workflow instead; context-mode must reduce overhead or context use, not add ceremony.
-- Treat context-mode as an analysis aid, not a substitute for inspecting relevant source before edits, running the required tests, or disclosing uncertainty. Do not claim to have used it if the tools are unavailable.
-- Never index or expose credentials, cookies, session tokens, private user data, ignored local files, or other sensitive content. Keep context-mode session data under `.github/context-mode/` ignored by Git.
+- Route substantial analysis through the configured context-mode tools; do not read large raw inputs into chat when a sandbox summary or targeted retrieval can answer the question.
+- Use `ctx_execute_file` to analyze a specific file and `ctx_execute` to filter, count, compare, parse, or summarize command output or other in-memory data. Print only the relevant findings.
+- Use `ctx_batch_execute` for three or more related reads or I/O-bound commands, broad repository investigations, or outputs whose size is large or unpredictable. Include focused queries in the same batch when useful, and use `ctx_search` for targeted follow-up against indexed results.
+- For web pages and external documentation, use `ctx_fetch_and_index` followed by `ctx_search`; use `ctx_index` when local reference material will need repeated retrieval.
+- Do not use direct reads or raw command output for large-file analysis, log review, bulk search results, multi-file comparison, or data derivation when a context-mode sandbox workflow can keep the raw content out of chat. Never mentally compute over substantial raw output; perform the derivation in code and print the answer.
+- Direct tools remain appropriate for edits, navigation, a single small file, a short known output, or when context-mode is unavailable. Do not add context-mode calls to simple tasks merely to increase usage.
+- Context-mode is an analysis aid, not a substitute for reviewing the exact code being changed, validating the requested behavior, or disclosing uncertainty. Never claim a context-mode workflow ran unless it actually did.
+- Never send credentials, cookies, session tokens, private user data, secrets, or ignored local files to context-mode, external services, or shared indexes. Keep context-mode session data under `.github/context-mode/`, which is ignored by Git.
+- The workspace configures the context-mode MCP server in `.vscode/mcp.json` and its Copilot hooks in `.github/hooks/context-mode.json`. After configuration changes, restart VS Code/Copilot Chat and verify availability with `ctx stats`.
 - Keep `.vscode/mcp.json` and `.github/hooks/context-mode.json` tracked as shareable, secret-free project setup. Do not put machine-specific paths, credentials, or private configuration in them.
 
 ## Windows Usage and Validation
